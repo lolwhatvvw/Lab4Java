@@ -1,5 +1,6 @@
 package com.company.warehouse;
 
+import com.company.exceptions.ItemAlreadyExistsException;
 import com.company.billing.stockList.GenericItem;
 
 import java.util.ArrayList;
@@ -25,7 +26,11 @@ public class ItemCatalog {
         this.arrListCatalog = arrListCatalog;
     }
 
-    public void addItem(GenericItem item) {
+    public void addItem(GenericItem item) throws ItemAlreadyExistsException {
+        if (catalog.get(item.getId()) != null) {
+            throw new ItemAlreadyExistsException();
+        }
+
         catalog.put(item.getId(), item);
         arrListCatalog.add(item);
     }
